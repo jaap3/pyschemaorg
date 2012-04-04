@@ -1,3 +1,6 @@
+from ez_setup import use_setuptools
+use_setuptools()
+
 import codecs
 from os.path import join, dirname
 from setuptools import setup, find_packages
