@@ -25,7 +25,6 @@ class JSONSchemaLoader(SchemaLoader):
     def schema(self):
         if self._schema is None:
             if self._schema_json is None:
-                self._schema_json = StringIO()
-                downloader.get_schema_json(f)
+                self._schema_json = StringIO(downloader.get_schema_json())
             self._schema = json.load(self._schema_json)
         return self._schema

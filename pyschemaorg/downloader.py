@@ -1,15 +1,16 @@
+from contextlib import closing
 import urllib2
 
 
 URL = 'http://schema.rdfs.org/all.json'
 
 
-def get_schema_json(output_file):
-    response = urllib2.urlopen(URL)
-    with open(output_file, 'w') as f:
-        for line in response:
-            f.write(line)
+def get_schema_json():
+    return urllib2.urlopen(URL).read()
 
 
 if __name__ == '__main__':
-    get_schema_json('schema.json')
+    f = open('schema.json', 'w')
+    f.write(get_schema_json())
+    f.close()
+

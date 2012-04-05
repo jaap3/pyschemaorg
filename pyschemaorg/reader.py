@@ -8,10 +8,8 @@ except ImportError:  # pragma: no cover
 
 class SchemaReader(object):
 
-    def __init__(self, schema_loader=None):
-        if schema_loader is None:
-            schema_loader = JSONSchemaLoader()
-        self._loader = schema_loader
+    def __init__(self, schema_file=None):
+        self.loader = JSONSchemaLoader(schema_file)
         self._base_type = None
         self._types = None
 
@@ -23,7 +21,7 @@ class SchemaReader(object):
 
         '''
         if self._base_type is None:
-            type_iter = self._loader.schema['types'].iteritems()
+            type_iter = self.loader.schema['types'].iteritems()
             while not self._base_type:
                 type_name, properties = type_iter.next()
                 if not properties['ancestors']:
@@ -39,7 +37,7 @@ class SchemaReader(object):
     def _type_walker(self):
         visited = list()
         to_crawl = deque([self.base_type])
-        types = self._loader.schema['types']
+        types = self.loader.schema['types']
         while to_crawl:
             current = to_crawl.popleft()
             if current in visited:
