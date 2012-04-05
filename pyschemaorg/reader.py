@@ -1,3 +1,4 @@
+import re
 from collections import deque
 from pyschemaorg.loader import JSONSchemaLoader
 try:
@@ -7,7 +8,6 @@ except ImportError:  # pragma: no cover
 
 
 class SchemaReader(object):
-
     def __init__(self, schema_file=None):
         self.loader = JSONSchemaLoader(schema_file)
         self._base_type = None
@@ -39,10 +39,33 @@ class SchemaReader(object):
         to_crawl = deque([self.base_type])
         types = self.loader.schema['types']
         while to_crawl:
-            current = to_crawl.popleft()
+            current = SchemaType(**types[to_crawl.popleft()])
             if current in visited:
                 continue
             yield current
             visited.append(current)
-            to_crawl.extend(types[current]['subtypes'])
+            to_crawl.extend(current.subtypes)
         self._types = visited
+
+
+class SchemaType(object):
+    def __init__(self, id, ancestors=[], supertypes=[], properties=[],
+                 specific_properties=[], instances=None, subtypes=[],
+                 url=None, label=None, comment='', comment_plain=''):
+        self.id = id
+        self.properties = properties
+        self.specific_properties = specific_properties
+        self.supertypes = supertypes
+        self.ancestors = ancestors
+        self.instances = instances
+        self.subtypes = subtypes
+        self.url = url or 'http://schema.org/%s' % self.id
+        self.label = label or re.sub("([a-z])([A-Z])","\g<1> \g<2>", id)
+        self.comment = comment
+        self.comment_plain = comment_plain
+
+    def __repr__(self):  # pragma: no-cover
+        return u''.join(('SchemaType(ancestors=%r, comment=%r, ',
+                         'comment_plain=%r, id=%r, label=%r, properties=%r, ',
+                         'specific_properties=%r, subtypes=%r, ',
+                         'supertypes=%r, url=%r)')) % self
