@@ -60,7 +60,7 @@ class SchemaType(object):
         self.instances = instances
         self.subtypes = subtypes
         self.url = url or 'http://schema.org/%s' % self.id
-        self.label = label or re.sub("([a-z])([A-Z])","\g<1> \g<2>", id)
+        self.label = label or re.sub('([a-z])([A-Z])', '\g<1> \g<2>', id)
         self.comment = comment
         self.comment_plain = comment_plain
 
