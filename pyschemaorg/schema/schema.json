@@ -22,8 +22,8 @@
     }, 
     "DataType": {
       "ancestors": [], 
-      "comment": "The basic data types such as Integers, Strings, etc.", 
-      "comment_plain": "The basic data types such as Integers, Strings, etc.", 
+      "comment": "The basic schema types such as Integers, Strings, etc.",
+      "comment_plain": "The basic schema types such as Integers, Strings, etc.",
       "id": "DataType", 
       "label": "Data Type", 
       "properties": [], 
@@ -1209,8 +1209,8 @@
       ]
     }, 
     "exifData": {
-      "comment": "exif data for this object.", 
-      "comment_plain": "exif data for this object.", 
+      "comment": "exif schema for this object.",
+      "comment_plain": "exif schema for this object.",
       "domains": [
         "ImageObject"
       ], 

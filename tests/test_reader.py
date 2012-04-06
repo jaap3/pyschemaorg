@@ -1,15 +1,10 @@
-import os.path
 import unittest2
 from pyschemaorg.reader import SchemaReader
 
 
-SCHEMA_LOCATION = os.path.join(os.path.dirname(__file__),
-                               'data', 'schema.json')
-
-
 class SchemaReaderTest(unittest2.TestCase):
     def setUp(self):
-        self.reader = SchemaReader(open(SCHEMA_LOCATION))
+        self.reader = SchemaReader()
 
     def test_get_base(self):
         self.assertEquals('Thing', self.reader.base_type)
@@ -33,9 +28,3 @@ class SchemaReaderTest(unittest2.TestCase):
                 for ancestor in schema_type.ancestors:
                     self.assertIn(ancestor, returned)
 
-
-@unittest2.skip('Disabled so it will not hammer schema.rdfs.org.')
-class TestReaderWithDownload(SchemaReaderTest):
-    def setUp(self):
-        super(TestReaderWithDownload, self).setUp()
-        self.reader = SchemaReader()
