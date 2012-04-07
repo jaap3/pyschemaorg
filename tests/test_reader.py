@@ -1,8 +1,8 @@
-import unittest2
+import unittest
 from pyschemaorg.reader import SchemaReader
 
 
-class SchemaReaderTest(unittest2.TestCase):
+class SchemaReaderTest(unittest.TestCase):
     def setUp(self):
         self.reader = SchemaReader()
 
