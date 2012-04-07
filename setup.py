@@ -14,7 +14,7 @@ setup(
     name='pyschemaorg',
     version=version,
     description='',
-    long_description='\n\n',#.join((read('README.rst'), read('CHANGES.rst'),)),
+    long_description='\n\n'.join((read('README.rst'), read('CHANGES.rst'),)),
     author='Jaap Roes',
     author_email='jaap.roes@gmail.com',
     url='https://github.com/jaap3/pyschemaorg',
@@ -27,8 +27,11 @@ setup(
         'Operating System :: OS Independent',
         'Programming Language :: Python',
     ],
-    install_requires=['inflect'],
+    install_requires=['inflect', 'sourcebuilder'],
     tests_require=['unittest2==0.5.1'],
     test_suite='unittest2.collector',
     zip_safe=False,
+    dependency_links=[
+        'https://github.com/jaap3/sourcebuilder/zipball/master#egg=sourcebuilder-1.0'
+    ]
 )
